@@ -39,3 +39,5 @@ jobs:
         python -c "import app.main"
 
 
+          pip install fastapi
+
