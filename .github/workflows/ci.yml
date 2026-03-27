@@ -27,7 +27,7 @@ jobs:
       run: |
         source venv/bin/activate
         pip install --upgrade pip
-        pip install -r requirement.txt
+        pip install requirements.txt
     
     - name: Scan entire repo (syntax check)
       run: |
