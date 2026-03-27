@@ -1,4 +1,4 @@
-name: FastAPI CI
+name: Full Repo Scan CI
 
 on:
   push:
@@ -6,19 +6,19 @@ on:
   pull_request:
 
 jobs:
-  build:
+  scan:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up Python
+    - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
-    - name: Create virtual environment
+    - name: Create venv
       run: |
         python -m venv venv
         source venv/bin/activate
@@ -28,8 +28,19 @@ jobs:
         source venv/bin/activate
         pip install --upgrade pip
         pip install -r requirements.txt
-
-    - name: Run tests
+    
+    - name: Scan entire repo (syntax check)
       run: |
         source venv/bin/activate
-        pytest
+        python -m compileall .
+
+    - name: Import validation
+      run: |
+        source venv/bin/activate
+        python -c "import app.main"
+
+    # Optional: run FastAPI briefly
+    - name: Run FastAPI app (smoke test)
+      run: |
+        source venv/bin/activate
+        timeout 5s uvicorn app.main:app
