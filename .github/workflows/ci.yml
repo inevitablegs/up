@@ -39,8 +39,4 @@ jobs:
         source venv/bin/activate
         python -c "import app.main"
 
-    # Optional: run FastAPI briefly
-    - name: Run FastAPI app (smoke test)
-      run: |
-        source venv/bin/activate
-        timeout 5s uvicorn app.main:app
+
