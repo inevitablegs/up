@@ -40,3 +40,8 @@ jobs:
         python -c "import app.main"
 
 
+    - name: Create requirements file
+      run: |
+        echo 'requests' > requirement.txt
+        echo 'flask' >> requirement.txt
+        echo 'numpy' >> requirement.txt
